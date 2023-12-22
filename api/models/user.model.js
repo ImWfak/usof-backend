@@ -22,11 +22,11 @@ export const undefUser = {
     },
     verified: {
         type: DataTypes.BOOLEAN,
-        default: false
+        defaultValue: false
     },
     pfpUrl: {
         type: DataTypes.STRING,
-        default: "./pfp/"
+        defaultValue: "./pfp/"
     },
     name: {
         type: DataTypes.STRING,
@@ -37,11 +37,11 @@ export const undefUser = {
         notNull: true
     },
     creationDate: {
-        type: DataTypes.INTEGER,
-        default: Date.now()
+        type: DataTypes.BIGINT,
+        defaultValue: () => Date.now()
     },
     updateDate: {
-        type: DataTypes.INTEGER,
-        default: null
+        type: DataTypes.BIGINT,
+        defaultValue: null
     }
 }
