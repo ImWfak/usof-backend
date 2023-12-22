@@ -1,6 +1,6 @@
 import {sequelize} from "./connectDB.js"
 import {
-    user
+    userModel
 } from "./defineModels.js"
 
 export async function makeAssociations() {

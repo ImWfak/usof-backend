@@ -5,7 +5,7 @@ import {
     getAllUsers,
     updateUserById,
     deleteUserById
-} from "../crudControllers/user.comtroller.js"
+} from "../crudControllers/user.controller.js"
 import {
     createUserValidation,
     updateUserValidator

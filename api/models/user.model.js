@@ -1,9 +1,11 @@
 import {DataTypes} from "sequelize"
 import {
-    userEmailRegex, userPasswordRegex, userPfpUrlRegex
+    userEmailRegex,
+    userPasswordRegex,
+    userPfpUrlRegex
 } from "../regexes/user.regex.js"
 
-export const undefUser = {
+export const undefUserModel = {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
