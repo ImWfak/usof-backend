@@ -1,4 +1,7 @@
 import {DataTypes} from "sequelize"
+import {
+    userEmailRegex, userPasswordRegex, userPfpUrlRegex
+} from "../regexes/user.regex.js"
 
 export const undefUser = {
     id: {
@@ -9,7 +12,13 @@ export const undefUser = {
     email: {
         type: DataTypes.STRING,
         unique: true,
-        notNull: true
+        notNull: true,
+        validate: {
+            customValidator(email) {
+                if (!userEmailRegex.test(email))
+                    throw new Error("Wrong user email")
+            }
+        }
     },
     login: {
         type: DataTypes.STRING,
@@ -18,7 +27,13 @@ export const undefUser = {
     },
     password: {
         type: DataTypes.STRING,
-        notNull: true
+        notNull: true,
+        validate: {
+            customValidator(password) {
+                if (!userPasswordRegex.test(password))
+                    throw new Error("Wrong user password")
+            }
+        }
     },
     verified: {
         type: DataTypes.BOOLEAN,
@@ -26,7 +41,13 @@ export const undefUser = {
     },
     pfpUrl: {
         type: DataTypes.STRING,
-        defaultValue: "./pfp/"
+        defaultValue: "./pfp/",
+        validate: {
+            customValidator(pfpUrl) {
+                if (!userPfpUrlRegex.test(pfpUrl))
+                    throw new Error("Wrong user pfpUrl")
+            }
+        }
     },
     name: {
         type: DataTypes.STRING,
