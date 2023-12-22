@@ -7,13 +7,13 @@ import {
     deleteUserById
 } from "../crudControllers/user.controller.js"
 import {
-    createUserValidation,
+    createUserValidator,
     updateUserValidator
 } from "../validators/user.validator.js"
 import {idValidator} from "../validators/id.validator.js"
 
 const userRouter= express.Router()
-userRouter.post("/createUser", createUserValidation, createUser)
+userRouter.post("/createUser", createUserValidator, createUser)
 userRouter.get("/getUserById/:id", idValidator, getUserById)
 userRouter.get("/getAllUsers", getAllUsers)
 userRouter.patch("/updateUserById/:id", updateUserValidator, updateUserById)

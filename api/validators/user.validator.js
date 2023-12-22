@@ -7,7 +7,7 @@ import {
     userPfpUrlRegex
 } from "../regexes/user.regex.js"
 
-export const createUserValidation = [
+export const createUserValidator = [
     body("email")       .isEmail()  .exists()
         .matches(userEmailRegex)
         .withMessage("Wrong user email"),
