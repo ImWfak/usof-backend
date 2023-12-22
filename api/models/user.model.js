@@ -63,6 +63,12 @@ export const undefUser = {
     },
     updateDate: {
         type: DataTypes.BIGINT,
-        defaultValue: null
+        defaultValue: null,
+        validate: {
+            customValidator(updateDate) {
+                if (updateDate < this.creationDate)
+                    throw new Error("Wrong updateDate value")
+            }
+        }
     }
 }

@@ -1,17 +1,17 @@
+//========================================GET SERVER
 import {
     SERVER_PORT,
     SERVER_HOST,
     LOG_LEVEL
 } from "../configs/server.config.js"
 import express from "express"
-import morgan from "morgan"
-
 const app = express()
 
 //========================================OTHER
-app.disable("x-powered-by")
-app.use(express.json())
-app.use(morgan(LOG_LEVEL))
+import morgan from "morgan"
+app.disable("x-powered-by")        //disable express tag
+app.use(express.json())                   //enable using json
+app.use(morgan(LOG_LEVEL))                //enable logging
 
 //========================================ROUTERS
 import userRouter from "../api/routers/user.router.js"
