@@ -1,5 +1,5 @@
 import {param} from "express-validator"
 
 export const idValidator = [
-    param("id", "Wrong id").isInt({min: 0}).notEmpty()
+    param("id").isInt({min: 0}).notEmpty().withMessage("Wrong id")
 ]
