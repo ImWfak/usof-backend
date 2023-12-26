@@ -117,6 +117,7 @@ export async function updateVerificationCodeById(req, res) {
         verificationCodeData.code = await genVerificationCode()
         while(await verificationCodeModel.findOne({where: {code: verificationCodeData.code}}) !== null)
             verificationCodeData.code = await genVerificationCode()
+        verificationCodeData.updateDate = Date.now()
         await verificationCodeModel.update(
             verificationCodeData,
             {where: {id: id}}

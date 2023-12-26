@@ -18,10 +18,12 @@ import userRouter from "../api/routers/user.router.js"
 import verificationCodeRouter from "../api/routers/verificationCode.router.js"
 import postRouter from "../api/routers/post.router.js"
 import topicRouter from "../api/routers/topic.router.js"
+import postRefTopicRouter from "../api/routers/postRefTopic.router.js"
 app.use("/api", userRouter)
 app.use("/api", verificationCodeRouter)
 app.use("/api", postRouter)
 app.use("/api", topicRouter)
+app.use("/api", postRefTopicRouter)
 
 //========================================DATA BASE
 import {sequelize} from "../api/dbutils/connectDB.js"
