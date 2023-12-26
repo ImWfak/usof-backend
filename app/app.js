@@ -15,7 +15,9 @@ app.use(morgan(LOG_LEVEL))                //enable logging
 
 //========================================ROUTERS
 import userRouter from "../api/routers/user.router.js"
+import postRouter from "../api/routers/post.router.js"
 app.use("/api", userRouter)
+app.use("/api", postRouter)
 
 //========================================DATA BASE
 import {sequelize} from "../api/dbutils/connectDB.js"
@@ -25,10 +27,10 @@ await sequelize.authenticate().then(function() {
 }).catch(function(err) {
     console.log("Sequelize can`t connect to database")
 })
+await makeAssociations()
 await sequelize.sync({alter: true}).then(function() {
     console.log("Database has been updated")
 })
-await makeAssociations()
 
 //========================================START SERVER
 app.listen(SERVER_PORT, function(err) {

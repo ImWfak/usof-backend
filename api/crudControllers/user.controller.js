@@ -11,11 +11,11 @@ export async function createUser(req, res) {
                 err: err.array()
             })
         const userData = req.body
-        if(await userModel.findOne({where: {email: userData.email}}) !== null)
+        if (await userModel.findOne({where: {email: userData.email}}) !== null)
             return res.status(400).json({
                 msg: "User with this email already exists, email: " + userData.email
             })
-        if(await userModel.findOne({where: {login: userData.login}}) !== null)
+        if (await userModel.findOne({where: {login: userData.login}}) !== null)
             return res.status(400).json({
                 msg: "User with this login already exists, login: " + userData.login
             })
@@ -59,20 +59,22 @@ export async function getUserById(req, res) {
             where: {id: id}
         }).then(function(foundedUser) {
             if (!foundedUser)
-                return res.status(400).json({msg: "User with this id does not exist, id: " + id})
-            return res.status(200).json({foundedUser})
+                return res.status(400).json({
+                    msg: "User with this id does not exist, id: " + id
+                })
+            return res.status(200).json(foundedUser)
         })
     } catch (err) {
         return res.status(500).json({
             err: err,
-            msg: "Server can not find user by id"
+            msg: "Server can not find user"
         })
     }
 }
 
 export async function getAllUsers(req, res) {
     try {
-        await userModel.findOne({
+        await userModel.findAll({
             attributes: [
                 "id",
                 "email",
@@ -87,13 +89,15 @@ export async function getAllUsers(req, res) {
             ]
         }).then(function(foundedUsers) {
             if (!foundedUsers)
-                return res.status(400).json({msg: "No users are exist"})
+                return res.status(400).json({
+                    msg: "No users are exist"
+                })
             return res.status(200).json(foundedUsers)
         })
     } catch (err) {
         return res.status(500).json({
             err: err,
-            msg: "Server can not find all user"
+            msg: "Server can not find all users"
         })
     }
 }
@@ -166,7 +170,7 @@ export async function deleteUserById(req, res) {
         })
     } catch (err) {
         return res.status(500).json({
-            err: err.msg,
+            err: err,
             msg: "Server can not delete user"
         })
     }
