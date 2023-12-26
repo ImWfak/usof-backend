@@ -1,6 +1,7 @@
 import {validationResult} from "express-validator"
 import {
-    postModel, postRefTopicModel,
+    postModel,
+    postRefTopicModel,
     topicModel
 } from "../dbutils/defineModels.js"
 

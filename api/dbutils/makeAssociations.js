@@ -1,6 +1,7 @@
 import {
     userModel,
     verificationCodeModel,
+    forumRoleModel,
     postModel,
     topicModel,
     postRefTopicModel
@@ -24,8 +25,19 @@ export async function makeAssociations() {
         onDelete: "SET NULL",
         foreignKey: {
             name: "userId"
-        }})
+        }
+    })
     postModel.belongsTo(userModel)
+
+    //user -< forumRole
+    //   1 to many
+    userModel.hasMany(forumRoleModel, {
+        onDelete: "CASCADE",
+        foreignKey: {
+            name: "userId"
+        }
+    })
+    forumRoleModel.belongsTo(userModel)
     //========================================POST REF TOPIC
     //post -< postRefTopic >- topic
     //   1 to     many     to 1
