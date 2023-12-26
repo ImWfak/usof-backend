@@ -1,11 +1,11 @@
-import {Op} from "sequelize"
 import {validationResult} from "express-validator"
+import {Op} from "sequelize"
 import {userModel} from "../dbutils/defineModels.js"
 import {genHashPassword} from "../hasher/genHashPassword.js"
 
 export async function createUser(req, res) {
     try {
-        const err = validationResult(req)
+        const err = await validationResult(req)
         if (!err.isEmpty())
             return res.status(400).json({
                 err: err.array()
@@ -13,11 +13,11 @@ export async function createUser(req, res) {
         const userData = req.body
         if (await userModel.findOne({where: {email: userData.email}}) !== null)
             return res.status(400).json({
-                msg: "User with this email already exists, email: " + userData.email
+                msg: "User with this email already exist, email: " + userData.email
             })
         if (await userModel.findOne({where: {login: userData.login}}) !== null)
             return res.status(400).json({
-                msg: "User with this login already exists, login: " + userData.login
+                msg: "User with this login already exist, login: " + userData.login
             })
         userData.password = await genHashPassword(userData.password)
         await userModel.create(
@@ -37,7 +37,7 @@ export async function createUser(req, res) {
 
 export async function getUserById(req, res) {
     try {
-        const err = validationResult(req)
+        const err = await validationResult(req)
         if (!err.isEmpty())
             return res.status(400).json({
                 err: err.array()
@@ -104,7 +104,7 @@ export async function getAllUsers(req, res) {
 
 export async function updateUserById(req, res) {
     try {
-        const err = validationResult(req)
+        const err = await validationResult(req)
         if (!err.isEmpty())
             return res.status(400).json({
                 err: err.array()
@@ -122,7 +122,7 @@ export async function updateUserById(req, res) {
             }
         }) !== null)
             return res.status(400).json({
-                msg: "User with this email already exists, email: " + userData.email
+                msg: "User with this email already exist, email: " + userData.email
             })
         if (await userModel.findOne({
             where: {
@@ -131,7 +131,7 @@ export async function updateUserById(req, res) {
             }
         }) !== null)
             return res.status(400).json({
-                msg: "User with this login already exists, login: " + userData.login
+                msg: "User with this login already exist, login: " + userData.login
             })
         userData.password = await genHashPassword(userData.password)
         userData.updateDate = Date.now()
@@ -153,7 +153,7 @@ export async function updateUserById(req, res) {
 
 export async function deleteUserById(req, res) {
     try {
-        const err = validationResult(req)
+        const err = await validationResult(req)
         if (!err.isEmpty())
             return res.status(400).json({
                 err: err.array()

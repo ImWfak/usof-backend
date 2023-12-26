@@ -1,6 +1,6 @@
-import {body} from "express-validator";
+import {body} from "express-validator"
 import {dateValidator} from "./date.validator.js"
-import {idValidator} from "./id.validator.js";
+import {idValidator} from "./id.validator.js"
 
 export const createVerificationCodeValidator = [
     body("userId")      .exists()       .isInt({min: 0})    .withMessage("Wrong verification code userId"),

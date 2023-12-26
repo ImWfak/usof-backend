@@ -14,7 +14,7 @@ async function genVerificationCode() {
 
 export async function createVerificationCode(req, res) {
     try {
-        const err = validationResult(req)
+        const err = await validationResult(req)
         if (!err.isEmpty())
             return res.status(400).json({
                 err: err.array()
@@ -44,7 +44,7 @@ export async function createVerificationCode(req, res) {
 
 export async function getVerificationCodeById(req, res) {
     try {
-        const err = validationResult(req)
+        const err = await validationResult(req)
         if (!err.isEmpty())
             return res.status(400).json({
                 err: err.array()
@@ -99,7 +99,7 @@ export async function getAllVerificationCodes(req, res) {
 
 export async function updateVerificationCodeById(req, res) {
     try {
-        const err = validationResult(req)
+        const err = await validationResult(req)
         if (!err.isEmpty())
             return res.status(400).json({
                 err: err.array()
@@ -135,7 +135,7 @@ export async function updateVerificationCodeById(req, res) {
 
 export async function deleteVerificationCodeById(req, res) {
     try {
-        const err = validationResult(req)
+        const err = await validationResult(req)
         if (!err.isEmpty())
             return res.status(400).json({
                 err: err.array()

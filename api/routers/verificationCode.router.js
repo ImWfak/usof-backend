@@ -13,10 +13,10 @@ import {
 import {idValidator} from "../validators/id.validator.js"
 
 const verificationCodeRouter = express.Router()
-verificationCodeRouter.post("/createVerificationCode", createVerificationCodeValidator, createVerificationCode)
-verificationCodeRouter.get("/getVerificationCodeById/:id", idValidator, getVerificationCodeById)
-verificationCodeRouter.get("/getAllVerificationCodes", getAllVerificationCodes)
-verificationCodeRouter.patch("/updateVerificationCodeById/:id", updateVerificationCodeValidator, updateVerificationCodeById)
-verificationCodeRouter.delete("/deleteVerificationCodeById/:id", idValidator, deleteVerificationCodeById)
+verificationCodeRouter.post(  "/createVerificationCode",         createVerificationCodeValidator, createVerificationCode)
+verificationCodeRouter.get(   "/getVerificationCodeById/:id",    idValidator,                     getVerificationCodeById)
+verificationCodeRouter.get(   "/getAllVerificationCodes",                                         getAllVerificationCodes)
+verificationCodeRouter.patch( "/updateVerificationCodeById/:id", updateVerificationCodeValidator, updateVerificationCodeById)
+verificationCodeRouter.delete("/deleteVerificationCodeById/:id", idValidator,                     deleteVerificationCodeById)
 
 export default verificationCodeRouter
