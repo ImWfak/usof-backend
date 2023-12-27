@@ -11,13 +11,13 @@ export const undefForumRoleModel = {
         type: DataTypes.INTEGER,
         notNull: true
     },
-    role: {
+    forumRole: {
         type: DataTypes.ENUM(...Object.values(forumRoleEnum)),
         defaultValue: forumRoleEnum.USER,
         validate: {
             customValidator(forumRole) {
                 if (!Object.values(forumRoleEnum).includes(forumRole))
-                    throw new Error("Wrong forum role")
+                    throw new Error("Wrong forum role value")
             }
         }
     },

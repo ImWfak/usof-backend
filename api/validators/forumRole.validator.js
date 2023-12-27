@@ -4,5 +4,5 @@ import {forumRoleEnum} from "../enums/forumRoles.enum.js"
 
 export const createForumRoleValidator = [
     body("userId")      .exists()       .isInt({min: 0})    .withMessage("Wrong forum role userId"),
-    body("role")        .exists()       .isIn(forumRoleEnum)       .withMessage("wrong forum role")
+    body("role")        .exists()       .isIn(forumRoleEnum)       .withMessage("Wrong forum role")
 ].concat(dateValidator)

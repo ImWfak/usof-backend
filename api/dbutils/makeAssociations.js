@@ -5,7 +5,8 @@ import {
     postModel,
     topicModel,
     postRefTopicModel,
-    commentModel
+    commentModel,
+    activityModel
 } from "./defineModels.js"
 
 export async function makeAssociations() {
@@ -49,6 +50,16 @@ export async function makeAssociations() {
         }
     })
     commentModel.belongsTo(userModel)
+
+    //user -< activity
+    //   1 to many
+    userModel.hasMany(activityModel, {
+        onDelete: "SET NULL",
+        foreignKey: {
+            name: "userId"
+        }
+    })
+    activityModel.belongsTo(userModel)
     //========================================POST REF TOPIC
     //post -< postRefTopic >- topic
     //   1 to     many     to 1
@@ -70,6 +81,16 @@ export async function makeAssociations() {
         }
     })
     commentModel.belongsTo(postModel)
+
+    //post -< activity
+    //   1 to many
+    postModel.hasMany(activityModel, {
+        onDelete: "CASCADE",
+        foreignKey: {
+            name: "postId"
+        }
+    })
+    activityModel.belongsTo(postModel)
     //========================================COMMENT
     //comment -< comment
     //      1 to many
@@ -79,4 +100,16 @@ export async function makeAssociations() {
             name: "commentId"
         }
     })
+    commentModel.belongsTo(commentModel)
+
+    //comment -< activity
+    //      1 to many
+    commentModel.hasMany(activityModel, {
+        onDelete: "CASCADE",
+        foreignKey: {
+            name: "commentId"
+        }
+    })
+    activityModel.belongsTo(commentModel)
+    //========================================ACTIVITY
 }

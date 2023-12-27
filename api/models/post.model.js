@@ -11,13 +11,13 @@ export const undefPostModel = {
         type: DataTypes.INTEGER,
         notNull: false
     },
-    status: {
+    postStatus: {
         type: DataTypes.ENUM(...Object.values(postStatusEnum)),
         defaultValue: postStatusEnum.ACTIVE,
         validate: {
             customValidator(postStatus) {
                 if (!Object.values(postStatusEnum).includes(postStatus))
-                    throw new Error("Wrong post status")
+                    throw new Error("Wrong post status value")
             }
         }
     },

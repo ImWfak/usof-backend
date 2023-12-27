@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize"
-import {commentTypeEnum} from "../enums/commentType.enum.js"
+import {commentForEnum} from "../enums/commentType.enum.js"
 
 export const undefCommentsModel = {
     id: {
@@ -11,13 +11,13 @@ export const undefCommentsModel = {
         type: DataTypes.INTEGER,
         notNull: false
     },
-    commentType: {
-        type: DataTypes.ENUM(...Object.values(commentTypeEnum)),
-        defaultValue: commentTypeEnum.COMMENT,
+    commentFor: {
+        type: DataTypes.ENUM(...Object.values(commentForEnum)),
+        notNull: true,
         validate: {
-            customValidator(commentType) {
-                if (!Object.values(commentTypeEnum).includes(commentType))
-                    throw new Error("Wrong comment type")
+            customValidator(commentFor) {
+                if (!Object.values(commentForEnum).includes(commentFor))
+                    throw new Error("Wrong comment type value")
             }
         }
     },

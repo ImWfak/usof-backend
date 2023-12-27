@@ -1,5 +1,5 @@
 import {validationResult} from "express-validator"
-import {commentTypeEnum} from "../enums/commentType.enum.js"
+import {commentForEnum} from "../enums/commentType.enum.js"
 import {
     userModel,
     postModel,
@@ -18,16 +18,18 @@ export async function createComment(req, res) {
             return res.status(400).json({
                 msg: "User with this id does not exist, id: " + commentData.userId
             })
-        if (commentData.commentType === commentTypeEnum.POST) {
+        if (commentData.commentFor === commentForEnum.POST) {
             if (await postModel.findOne({where: {id: commentData.postId}}) === null)
                 return res.status(400).json({
                     msg: "Post with this id does not exist, id: " + commentData.postId
                 })
-        } else if (commentData.commentType === commentTypeEnum.COMMENT) {
+            commentData.commentId = null
+        } else if (commentData.commentFor === commentForEnum.COMMENT) {
             if (await commentModel.findOne({where: {id: commentData.commentId}}) === null)
                 return res.status(400).json({
                     msg: "Comment with this id does not exist, id: " + commentData.commentId
                 })
+            commentData.postId = null
         }
         await commentModel.create(
             commentData
@@ -123,13 +125,13 @@ export async function updateCommentById(req, res) {
             return res.status(400).json({
                 msg: "User with this id does not exist, id: " + commentData.userId
             })
-        if (commentData.commentType === commentTypeEnum.POST) {
+        if (commentData.commentFor === commentForEnum.POST) {
             if (await postModel.findOne({where: {id: commentData.postId}}) === null)
                 return res.status(400).json({
                     msg: "Post with this id does not exist, id: " + commentData.postId
                 })
             commentData.commentId = null
-        } else if (commentData.commentType === commentTypeEnum.COMMENT) {
+        } else if (commentData.commentFor === commentForEnum.COMMENT) {
             if (await commentModel.findOne({where: {id: commentData.commentId}}) === null)
                 return res.status(400).json({
                     msg: "Comment with this id does not exist, id: " + commentData.commentId
