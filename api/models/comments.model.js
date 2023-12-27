@@ -1,7 +1,7 @@
 import {DataTypes} from "sequelize"
-import {postStatusEnum} from "../enums/postStatus.enum.js"
+import {commentTypeEnum} from "../enums/commentType.enum.js"
 
-export const undefPostModel = {
+export const undefCommentsModel = {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -11,19 +11,23 @@ export const undefPostModel = {
         type: DataTypes.INTEGER,
         notNull: false
     },
-    status: {
-        type: DataTypes.ENUM(...Object.values(postStatusEnum)),
-        defaultValue: postStatusEnum.ACTIVE,
+    commentType: {
+        type: DataTypes.ENUM(...Object.values(commentTypeEnum)),
+        defaultValue: commentTypeEnum.COMMENT,
         validate: {
-            customValidator(postStatus) {
-                if (!Object.values(postStatusEnum).includes(postStatus))
-                    throw new Error("Wrong post status")
+            customValidator(commentType) {
+                if (!Object.values(commentTypeEnum).includes(commentType))
+                    throw new Error("Wrong comment type")
             }
         }
     },
-    name: {
-        type: DataTypes.STRING,
-        notNull: true
+    postId: {
+        type: DataTypes.INTEGER,
+        notNull: false
+    },
+    commentId: {
+        type: DataTypes.INTEGER,
+        notNull: false
     },
     content: {
         type: DataTypes.STRING,

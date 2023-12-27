@@ -4,7 +4,8 @@ import {
     forumRoleModel,
     postModel,
     topicModel,
-    postRefTopicModel
+    postRefTopicModel,
+    commentModel
 } from "./defineModels.js"
 
 export async function makeAssociations() {
@@ -19,6 +20,16 @@ export async function makeAssociations() {
     })
     verificationCodeModel.belongsTo(userModel)
 
+    //user -< forumRole
+    //   1 to many
+    userModel.hasMany(forumRoleModel, {
+        onDelete: "CASCADE",
+        foreignKey: {
+            name: "userId"
+        }
+    })
+    forumRoleModel.belongsTo(userModel)
+
     //user -< post
     //   1 to many
     userModel.hasMany(postModel, {
@@ -29,15 +40,15 @@ export async function makeAssociations() {
     })
     postModel.belongsTo(userModel)
 
-    //user -< forumRole
+    //user -< comment
     //   1 to many
-    userModel.hasMany(forumRoleModel, {
-        onDelete: "CASCADE",
+    userModel.hasMany(commentModel, {
+        onDelete: "SET NULL",
         foreignKey: {
             name: "userId"
         }
     })
-    forumRoleModel.belongsTo(userModel)
+    commentModel.belongsTo(userModel)
     //========================================POST REF TOPIC
     //post -< postRefTopic >- topic
     //   1 to     many     to 1
@@ -48,5 +59,24 @@ export async function makeAssociations() {
     topicModel.belongsToMany(postModel, {
         through: postRefTopicModel,
         foreignKey: "topicId"
+    })
+    //========================================POST
+    //post -< comment
+    //   1 to many
+    postModel.hasMany(commentModel, {
+        onDelete: "CASCADE",
+        foreignKey: {
+            name: "postId"
+        }
+    })
+    commentModel.belongsTo(postModel)
+    //========================================COMMENT
+    //comment -< comment
+    //      1 to many
+    commentModel.hasMany(commentModel, {
+        onDelete: "CASCADE",
+        foreignKey: {
+            name: "commentId"
+        }
     })
 }

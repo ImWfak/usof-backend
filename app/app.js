@@ -20,12 +20,14 @@ import forumRoleRouter from "../api/routers/forumRole.router.js"
 import postRouter from "../api/routers/post.router.js"
 import topicRouter from "../api/routers/topic.router.js"
 import postRefTopicRouter from "../api/routers/postRefTopic.router.js"
+import commentRouter from "../api/routers/comment.router.js"
 app.use("/api", userRouter)
 app.use("/api", verificationCodeRouter)
 app.use("/api", forumRoleRouter)
 app.use("/api", postRouter)
 app.use("/api", topicRouter)
 app.use("/api", postRefTopicRouter)
+app.use("/api", commentRouter)
 
 //========================================DATA BASE
 import {sequelize} from "../api/dbutils/connectDB.js"
