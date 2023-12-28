@@ -1,9 +1,10 @@
 import {DataTypes} from "sequelize"
 import {
     userEmailRegex,
+    userPhoneNumberRegex,
     userPasswordRegex,
     userPfpUrlRegex
-} from "../regexes/user.regex.js"
+} from "../regexes/user.regexex.js"
 
 export const undefUserModel = {
     id: {
@@ -18,7 +19,18 @@ export const undefUserModel = {
         validate: {
             customValidator(email) {
                 if (!userEmailRegex.test(email))
-                    throw new Error("Wrong user email")
+                    throw new Error("Wrong email value")
+            }
+        }
+    },
+    phoneNumber: {
+        type: DataTypes.STRING,
+        unique: true,
+        notNull: true,
+        validate: {
+            customValidator(phoneNumber) {
+                if (!userPhoneNumberRegex.test(phoneNumber))
+                    throw new Error("Wrong phoneNumber value")
             }
         }
     },
@@ -33,7 +45,7 @@ export const undefUserModel = {
         validate: {
             customValidator(password) {
                 if (!userPasswordRegex.test(password))
-                    throw new Error("Wrong user password")
+                    throw new Error("Wrong password value")
             }
         }
     },
@@ -47,7 +59,7 @@ export const undefUserModel = {
         validate: {
             customValidator(pfpUrl) {
                 if (!userPfpUrlRegex.test(pfpUrl))
-                    throw new Error("Wrong user pfpUrl")
+                    throw new Error("Wrong pfpUrl value")
             }
         }
     },
@@ -61,7 +73,7 @@ export const undefUserModel = {
     },
     creationDate: {
         type: DataTypes.BIGINT,
-        defaultValue: () => Date.now()
+        defaultValue: function () {return Date.now()}
     },
     updateDate: {
         type: DataTypes.BIGINT,

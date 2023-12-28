@@ -9,31 +9,19 @@ const app = express()
 
 //========================================OTHER
 import morgan from "morgan"
-app.disable("x-powered-by")         //disable express tag
+app.disable("x-powered-by")        //disable express tag
 app.use(express.json())                   //enable using json
 app.use(morgan(LOG_LEVEL))                //enable logging
 
 //========================================ROUTERS
+import authenticatorRouter from "../api/routers/authenticator.router.js"
 import userRouter from "../api/routers/user.router.js"
-import verificationCodeRouter from "../api/routers/verificationCode.router.js"
-import forumRoleRouter from "../api/routers/forumRole.router.js"
-import postRouter from "../api/routers/post.router.js"
-import topicRouter from "../api/routers/topic.router.js"
-import postRefTopicRouter from "../api/routers/postRefTopic.router.js"
-import commentRouter from "../api/routers/comment.router.js"
-import activityRouter from "../api/routers/activity.router.js"
-app.use("/api", userRouter)
-app.use("/api", verificationCodeRouter)
-app.use("/api", forumRoleRouter)
-app.use("/api", postRouter)
-app.use("/api", topicRouter)
-app.use("/api", postRefTopicRouter)
-app.use("/api", commentRouter)
-app.use("/api", activityRouter)
+app.use("/api/user", authenticatorRouter)
+app.use("/api/user", userRouter)
 
 //========================================DATA BASE
 import {sequelize} from "../api/dbutils/connectDB.js"
-import {makeAssociations} from "../api/dbutils/makeAssociations.js"
+import {makeAssociations} from "../api/dbutils/makeAssotiations.js"
 await sequelize.authenticate().then(function() {
     console.log("Sequelize connected to database")
 }).catch(function(err) {
@@ -50,3 +38,4 @@ app.listen(SERVER_PORT, function(err) {
         throw err
     console.log("Server at http://" + SERVER_HOST + ":" + SERVER_PORT)
 })
+a

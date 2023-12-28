@@ -1,39 +1,28 @@
 import {body} from "express-validator"
-import {idValidator} from "./id.validator.js"
-import {dateValidator} from "./date.validator.js"
 import {
     userEmailRegex,
+    userPhoneNumberRegex,
     userPasswordRegex,
     userPfpUrlRegex
-} from "../regexes/user.regex.js"
+} from "../regexes/user.regexex.js"
 
 export const createUserValidator = [
-    body("email")       .isEmail()  .exists()
-        .matches(userEmailRegex)
-        .withMessage("Wrong user email"),
-    body("login")       .isString() .exists().withMessage("Wrong user login"),
-    body("password")    .isString() .exists()
-        .matches(userPasswordRegex)
-        .withMessage("Wrong user password"),
-    body("pfpUrl")      .isString() .optional()
-        .matches(userPfpUrlRegex)
-        .withMessage("Wrong user pfpUrl"),
-    body("name")        .isString() .exists().withMessage("Wrong user name"),
-    body("surname")     .isString() .exists().withMessage("Wrong user surname"),
-].concat(dateValidator)
+    body("email")       .isString() .exists()   .matches(userEmailRegex)            .withMessage("Wrong user email value"),
+    body("phoneNumber") .isString() .exists()   .matches(userPhoneNumberRegex)      .withMessage("Wrong user phoneNumber value"),
+    body("login")       .isString() .exists()   .withMessage("Wrong user login value"),
+    body("password")    .isString() .exists()   .matches(userPasswordRegex)         .withMessage("Wrong user password value"),
+    body("pfpUrl")      .isString() .optional() .matches(userPfpUrlRegex)           .withMessage("Wrong user pfpUrl value"),
+    body("name")        .isString() .exists()   .withMessage("Wrong user name value"),
+    body("surname")     .isString() .exists()   .withMessage("Wrong user surname value")
+]
 
 export const updateUserValidator = [
-    body("email")       .isEmail()  .optional()
-        .matches(userEmailRegex)
-        .withMessage("Wrong user email"),
-    body("login")       .isString() .optional().withMessage("Wrong user login"),
-    body("password")    .isString() .optional()
-        .matches(userPasswordRegex)
-        .withMessage("Wrong user password"),
-    body("verified")    .isBoolean().optional().withMessage("Wrong verify"),
-    body("pfpUrl")      .isString() .optional()
-        .matches(userPfpUrlRegex)
-        .withMessage("Wrong user pfpUrl"),
-    body("name")        .isString() .optional().withMessage("Wrong user name"),
-    body("surname")     .isString() .optional().withMessage("Wrong user surname")
-].concat(idValidator, dateValidator)
+    body("email")       .isString() .optional() .matches(userEmailRegex)            .withMessage("Wrong user email value"),
+    body("phoneNumber") .isString() .optional() .matches(userPhoneNumberRegex)      .withMessage("Wrong user phoneNumber value"),
+    body("login")       .isString() .optional() .withMessage("Wrong user login value"),
+    body("password")    .isString() .optional() .matches(userPasswordRegex)         .withMessage("Wrong user password value"),
+    body("verified")    .isBoolean().optional() .withMessage("Wrong verify value"),
+    body("pfpUrl")      .isString() .optional() .matches(userPfpUrlRegex)           .withMessage("Wrong user pfpUrl value"),
+    body("name")        .isString() .optional() .withMessage("Wrong user name value"),
+    body("surname")     .isString() .optional() .withMessage("Wrong user surname value")
+]

@@ -1,22 +1,36 @@
 import express from "express"
+import {param} from "express-validator"
+import {userController} from "../controllers/user.controller.js"
+import {idValidator} from "../validators/common.validator.js"
 import {
-    createUser,
-    getUserById,
-    getAllUsers,
-    updateUserById,
-    deleteUserById
-} from "../crudControllers/user.controller.js"
-import {
-    createUserValidator,
-    updateUserValidator
-} from "../validators/user.validator.js"
-import {idValidator} from "../validators/id.validator.js"
+    userEmailRegex,
+    userPhoneNumberRegex
+} from "../regexes/user.regexex.js"
 
-const userRouter= express.Router()
-userRouter.post(  "/createUser",         createUserValidator, createUser)
-userRouter.get(   "/getUserById/:id",    idValidator,         getUserById)
-userRouter.get(   "/getAllUsers",                             getAllUsers)
-userRouter.patch( "/updateUserById/:id", updateUserValidator, updateUserById)
-userRouter.delete("/deleteUserById/:id", idValidator,         deleteUserById)
+const userRouter = express.Router()
+userRouter.get(
+    "/getById/:id",
+    idValidator,
+    userController.getUserById
+)
+userRouter.get(
+    "/getByEmail/:email",
+    param("email").isString().exists().matches(userEmailRegex).withMessage("Wrong user email value"),
+    userController.getUserByEmail
+)
+userRouter.get(
+    "/getByPhoneNumber/:phoneNumber",
+    param("phoneNumber").isString().exists().matches(userPhoneNumberRegex).withMessage("Wrong user phoneNumber value"),
+    userController.getUserByPhoneNumber
+)
+userRouter.get(
+    "/getByLogin/:login",
+    param("login").isString().exists().withMessage("Wrong user login value"),
+    userController.getUserByLogin
+)
+userRouter.get(
+    "/getAll",
+    userController.getAllUsers
+)
 
 export default userRouter
